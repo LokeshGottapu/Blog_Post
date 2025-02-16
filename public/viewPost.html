@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Edit Post</h1>
+    <div id="postContainer">
+        <label>Title:</label><br>
+        <input type="text" id="postTitle"><br><br>
+
+        <label>Content:</label><br>
+        <textarea id="postContent"></textarea><br><br>
+
+        <button onclick="updatePost()">Update</button>
+        <a href="/">Back</a>
+    </div>
+
+    <script>
+
+        let postId; // Store the post ID
+
+        // Fetch and populate post data for editing
+        async function fetchPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            postId = urlParams.get("postId");
+
+            if (!postId) {
+                alert("Post not found.");
+                return;
+            }
+
+            const response = await fetch(`http://localhost:3000/blog/${postId}`);
+            const post = await response.json();
+
+            if (!post.title) {
+                alert("Post not found.");
+                return;
+            }
+
+            document.getElementById("postTitle").value = post.title;
+            document.getElementById("postContent").value = post.content;
+        }
+
+        // Update the post
+        async function updatePost() {
+            const updatedTitle = document.getElementById("postTitle").value;
+            const updatedContent = document.getElementById("postContent").value;
+
+            if (!updatedTitle || !updatedContent) {
+                alert("Title and content cannot be empty.");
+                return;
+            }
+            if (updatedTitle.length > 10) {
+                alert("Title is too long");
+                return;
+            }
+            if (updatedTitle.length < 5) {
+                alert("Title is too short");
+                return;
+            }
+            if (updatedContent.length < 15) {
+                alert("Content is too short");
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/blog/${postId}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title: updatedTitle, content: updatedContent })
+                });
+
+                let result = await response.json();
+
+                if (response.ok) {
+                    alert("Post updated successfully!");
+                    // window.location.href = "index.html";
+                } else {
+                    alert("Error updating post: " + result.message);
+                }
+
+            } catch (error) {
+                console.error("Fetch Error:", error);
+            }
+
+        }
+
+        fetchPost(); // Load post when the page opens
+    </script>
+</body>
+
+</html>
