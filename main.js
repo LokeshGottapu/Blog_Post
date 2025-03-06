@@ -158,7 +158,7 @@ app.get("/blog/:postId", async (req, res) => {
 
     let postId = parseInt(req.params.postId);
 
-    const postIndex = posts.findIndex(post => post.postId === postId);
+    // const postIndex = posts.findIndex(post => post.postId === postId);
     const post = posts.find(post => post.postId === postId);
 
     if (!post) {
