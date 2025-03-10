@@ -169,4 +169,3 @@ async function deletePost(postId) {
 }
 
 
-fetchPosts();
