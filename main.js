@@ -34,7 +34,7 @@ passport.use(
         {
             clientID: "1014183577046-f6073o0d3kv0136064o5bklf57asm8k0.apps.googleusercontent.com",
             clientSecret: "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",
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: "http://ec2-43-204-229-196.ap-south-1.compute.amazonaws.com:3000/auth/google/callback",
         },
         (accessToken, refreshToken, profile, done) => {
             // console.log("Google Profile Data:", profile._json); // Logs the profile data
