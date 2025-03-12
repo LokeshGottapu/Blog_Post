@@ -12,7 +12,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:5500',
+    origin: 'http://ec2-43-204-229-196.ap-south-1.compute.amazonaws.com',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
 app.use(cors(corsOptions));

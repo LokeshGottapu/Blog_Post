@@ -32,7 +32,7 @@ let currentPage = 1;
 let totalPages = 1;
 
 async function fetchPosts(page = 1) {
-    const response = await fetch(`http://localhost:3000/blogs?page=${page}&limit=5`);
+    const response = await fetch(`http://ec2-43-204-229-196.ap-south-1.compute.amazonaws.com:3000/blogs?page=${page}&limit=5`);
     const data = await response.json();
 
     console.log("Fetched Posts:", data);
@@ -120,7 +120,7 @@ async function addPost() {
 
     let body = JSON.stringify({ title, content });
 
-    const response = await fetch("http://localhost:3000/blog", {
+    const response = await fetch("http://ec2-43-204-229-196.ap-south-1.compute.amazonaws.com:3000/blog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: body
@@ -164,7 +164,7 @@ async function addPost() {
 // Delete a post
 async function deletePost(postId) {
 
-    await fetch(`http://localhost:3000/blog/${postId}`, { method: "DELETE" });
+    await fetch(`http://ec2-43-204-229-196.ap-south-1.compute.amazonaws.com:3000/blog/${postId}`, { method: "DELETE" });
     fetchPosts();
 }
 
